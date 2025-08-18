@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.mealpulse.ui.theme.screens.dashboard.DashboardScreen
+import com.example.mealpulse.ui.theme.screens.foodItem.addFooditemScreen
 import com.example.mealpulse.ui.theme.screens.landing.landingScreen
 import com.example.mealpulse.ui.theme.screens.login.loginScreen
 import com.example.mealpulse.ui.theme.screens.register.registerScreen
@@ -17,6 +18,7 @@ fun AppNavHost(navController: NavHostController = rememberNavController(), start
         composable(ROUTE_LANDING) { landingScreen(navController) }
         composable(ROUTE_REGISTER) { registerScreen(navController) }
         composable(ROUTE_DASHBOARD) { DashboardScreen(navController) }
+        composable(ROUTE_ADDFOODITEM){ addFooditemScreen(navController) }
 
     }
 }

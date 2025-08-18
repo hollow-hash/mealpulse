@@ -86,12 +86,12 @@ fun loginScreen(navController: NavController) {
             Image(
                 painter = painterResource(id = R.drawable.loginbg),
                 contentDescription = "Image Logo",
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .height(0.dp)
-//                    .shadow(50.dp)
-//                    .size(100.dp)
-//                    .clip(RoundedCornerShape(20.dp)),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .height(0.dp)
+                    .shadow(50.dp)
+                    .size(100.dp)
+                    .clip(RoundedCornerShape(20.dp)),
                 contentScale = ContentScale.Fit
             )
         }
