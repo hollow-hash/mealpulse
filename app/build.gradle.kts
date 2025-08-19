@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth)
+    implementation(libs.androidx.runtime.saved.instance.state)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,4 +67,8 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
     implementation("com.cloudinary:cloudinary-android:2.3.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.11.0")
+
+
 }

@@ -11,12 +11,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,6 +33,7 @@ import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -62,6 +66,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.mealpulse.R
 import com.example.mealpulse.navigation.ROUTE_ADDFOODITEM
+import com.example.mealpulse.navigation.ROUTE_BEVERAGE
 import com.example.mealpulse.navigation.ROUTE_REGISTER
 
 
@@ -113,6 +118,555 @@ fun DashboardScreen(navController: NavController) {
                     actionIconContentColor = Color.White
                 )
             )
+            LazyColumn {
+                item {
+                    Column {
+                        Row(
+                            modifier = Modifier.wrapContentWidth(),
+                        ) {
+                            Card(
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .clickable { }
+                                    .size(150.dp),
+                                shape = RoundedCornerShape(10.dp),
+                                elevation = CardDefaults.cardElevation(50.dp),
+                                colors = CardDefaults.cardColors(Color.LightGray),
+                            ) {
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight()
+                                ) {
+                                    Box(
+
+                                        modifier = Modifier
+                                            .height(110.dp).width(150.dp),
+                                        contentAlignment = Alignment.Center,
+
+                                        ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.pastries),
+                                            contentDescription = "login bglog",
+                                            contentScale = ContentScale.FillBounds,
+                                            modifier = Modifier
+                                                .size(140.dp)
+                                                .clip(RoundedCornerShape(10.dp))
+                                                .fillMaxSize()
+                                        )
+
+                                    }
+                                    Text(
+                                        text = "Pastries",
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = FontFamily.Default,
+                                        fontStyle = FontStyle.Normal,
+                                        color = Color.Black,
+                                        textAlign = TextAlign.Center,
+                                    )
+                                }
+
+                            }
+
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Card(
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .clickable { }
+                                    .size(150.dp),
+                                shape = RoundedCornerShape(10.dp),
+                                elevation = CardDefaults.cardElevation(50.dp),
+                                colors = CardDefaults.cardColors(Color.LightGray),
+                            ) {
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight()
+                                ) {
+                                    Box(
+
+                                        modifier = Modifier
+                                            .height(110.dp).width(150.dp),
+                                        contentAlignment = Alignment.Center,
+
+                                        ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.dairy),
+                                            contentDescription = "login bglog",
+                                            contentScale = ContentScale.FillBounds,
+                                            modifier = Modifier
+                                                .size(140.dp)
+                                                .clip(RoundedCornerShape(10.dp))
+                                                .fillMaxSize()
+                                        )
+
+                                    }
+                                    Text(
+                                        text = "Dairy",
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = FontFamily.Default,
+                                        fontStyle = FontStyle.Normal,
+                                        color = Color.Black,
+                                        textAlign = TextAlign.Center,
+                                    )
+                                }
+
+                            }
+                        }
+                        Row(
+                            modifier = Modifier.wrapContentWidth(),
+                        ) {
+                            Card(
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .clickable { }
+                                    .size(150.dp),
+                                shape = RoundedCornerShape(10.dp),
+                                elevation = CardDefaults.cardElevation(50.dp),
+                                colors = CardDefaults.cardColors(Color.LightGray),
+                            ) {
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight()
+                                ) {
+                                    Box(
+
+                                        modifier = Modifier
+                                            .height(110.dp).width(150.dp),
+                                        contentAlignment = Alignment.Center,
+
+                                        ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.snacks),
+                                            contentDescription = "login bglog",
+                                            contentScale = ContentScale.FillBounds,
+                                            modifier = Modifier
+                                                .size(140.dp)
+                                                .clip(RoundedCornerShape(10.dp))
+                                                .fillMaxSize()
+                                        )
+
+                                    }
+                                    Text(
+                                        text = "Snacks",
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = FontFamily.Default,
+                                        fontStyle = FontStyle.Normal,
+                                        color = Color.Black,
+                                        textAlign = TextAlign.Center,
+                                    )
+                                }
+
+                            }
+
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Card(
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .clickable { navController.navigate(ROUTE_BEVERAGE)}
+                                    .size(150.dp),
+                                shape = RoundedCornerShape(10.dp),
+                                elevation = CardDefaults.cardElevation(50.dp),
+                                colors = CardDefaults.cardColors(Color.LightGray),
+                            ) {
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight()
+                                ) {
+                                    Box(
+
+                                        modifier = Modifier
+                                            .height(110.dp).width(150.dp),
+                                        contentAlignment = Alignment.Center,
+
+                                        ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.beverage),
+                                            contentDescription = "login bglog",
+                                            contentScale = ContentScale.FillBounds,
+                                            modifier = Modifier
+                                                .size(140.dp)
+                                                .clip(RoundedCornerShape(10.dp))
+                                                .fillMaxSize()
+                                        )
+
+                                    }
+                                    Text(
+                                        text = "Beverage",
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = FontFamily.Default,
+                                        fontStyle = FontStyle.Normal,
+                                        color = Color.Black,
+                                        textAlign = TextAlign.Center,
+                                    )
+                                }
+
+                            }
+                        }
+                        Row(
+                            modifier = Modifier.wrapContentWidth(),
+                        ) {
+                            Card(
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .clickable { }
+                                    .size(150.dp),
+                                shape = RoundedCornerShape(10.dp),
+                                elevation = CardDefaults.cardElevation(50.dp),
+                                colors = CardDefaults.cardColors(Color.LightGray),
+                            ) {
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight()
+                                ) {
+                                    Box(
+
+                                        modifier = Modifier
+                                            .height(110.dp).width(150.dp),
+                                        contentAlignment = Alignment.Center,
+
+                                        ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.vegatables),
+                                            contentDescription = "login bglog",
+                                            contentScale = ContentScale.FillBounds,
+                                            modifier = Modifier
+                                                .size(140.dp)
+                                                .clip(RoundedCornerShape(10.dp))
+                                                .fillMaxSize()
+                                        )
+
+                                    }
+                                    Text(
+                                        text = "vegetables",
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = FontFamily.Default,
+                                        fontStyle = FontStyle.Normal,
+                                        color = Color.Black,
+                                        textAlign = TextAlign.Center,
+                                    )
+                                }
+
+                            }
+
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Card(
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .clickable { }
+                                    .size(150.dp),
+                                shape = RoundedCornerShape(10.dp),
+                                elevation = CardDefaults.cardElevation(50.dp),
+                                colors = CardDefaults.cardColors(Color.LightGray),
+                            ) {
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight()
+                                ) {
+                                    Box(
+
+                                        modifier = Modifier
+                                            .height(110.dp).width(150.dp),
+                                        contentAlignment = Alignment.Center,
+
+                                        ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.fruits),
+                                            contentDescription = "login bglog",
+                                            contentScale = ContentScale.FillBounds,
+                                            modifier = Modifier
+                                                .size(140.dp)
+                                                .clip(RoundedCornerShape(10.dp))
+                                                .fillMaxSize()
+                                        )
+
+                                    }
+                                    Text(
+                                        text = "Fruits",
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = FontFamily.Default,
+                                        fontStyle = FontStyle.Normal,
+                                        color = Color.Black,
+                                        textAlign = TextAlign.Center,
+                                    )
+                                }
+
+                            }
+                        }
+                        Row(
+                            modifier = Modifier.wrapContentWidth(),
+                        ) {
+                            Card(
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .clickable { }
+                                    .size(150.dp),
+                                shape = RoundedCornerShape(10.dp),
+                                elevation = CardDefaults.cardElevation(50.dp),
+                                colors = CardDefaults.cardColors(Color.LightGray),
+                            ) {
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight()
+                                ) {
+                                    Box(
+
+                                        modifier = Modifier
+                                            .height(110.dp).width(150.dp),
+                                        contentAlignment = Alignment.Center,
+
+                                        ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.grains),
+                                            contentDescription = "login bglog",
+                                            contentScale = ContentScale.FillBounds,
+                                            modifier = Modifier
+                                                .size(140.dp)
+                                                .clip(RoundedCornerShape(10.dp))
+                                                .fillMaxSize()
+                                        )
+
+                                    }
+                                    Text(
+                                        text = "Grains",
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = FontFamily.Default,
+                                        fontStyle = FontStyle.Normal,
+                                        color = Color.Black,
+                                        textAlign = TextAlign.Center,
+                                    )
+                                }
+
+                            }
+
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Card(
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .clickable { }
+                                    .size(150.dp),
+                                shape = RoundedCornerShape(10.dp),
+                                elevation = CardDefaults.cardElevation(50.dp),
+                                colors = CardDefaults.cardColors(Color.LightGray),
+                            ) {
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight()
+                                ) {
+                                    Box(
+
+                                        modifier = Modifier
+                                            .height(110.dp).width(150.dp),
+                                        contentAlignment = Alignment.Center,
+
+                                        ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.seafood),
+                                            contentDescription = "login bglog",
+                                            contentScale = ContentScale.FillBounds,
+                                            modifier = Modifier
+                                                .size(140.dp)
+                                                .clip(RoundedCornerShape(10.dp))
+                                                .fillMaxSize()
+                                        )
+
+                                    }
+                                    Text(
+                                        text = "Sea Food",
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = FontFamily.Default,
+                                        fontStyle = FontStyle.Normal,
+                                        color = Color.Black,
+                                        textAlign = TextAlign.Center,
+                                    )
+                                }
+
+                            }
+                        }
+                        Row(
+                            modifier = Modifier.wrapContentWidth(),
+                        ) {
+                            Card(
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .clickable { }
+                                    .size(150.dp),
+                                shape = RoundedCornerShape(10.dp),
+                                elevation = CardDefaults.cardElevation(50.dp),
+                                colors = CardDefaults.cardColors(Color.LightGray),
+                            ) {
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight()
+                                ) {
+                                    Box(
+
+                                        modifier = Modifier
+                                            .height(110.dp).width(150.dp),
+                                        contentAlignment = Alignment.Center,
+
+                                        ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.canned),
+                                            contentDescription = "login bglog",
+                                            contentScale = ContentScale.FillBounds,
+                                            modifier = Modifier
+                                                .size(140.dp)
+                                                .clip(RoundedCornerShape(10.dp))
+                                                .fillMaxSize()
+                                        )
+
+                                    }
+                                    Text(
+                                        text = "Canned food",
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = FontFamily.Default,
+                                        fontStyle = FontStyle.Normal,
+                                        color = Color.Black,
+                                        textAlign = TextAlign.Center,
+                                    )
+                                }
+
+                            }
+
+                            Spacer(modifier = Modifier.width(10.dp))
+                            Card(
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .clickable { }
+                                    .size(150.dp),
+                                shape = RoundedCornerShape(10.dp),
+                                elevation = CardDefaults.cardElevation(50.dp),
+                                colors = CardDefaults.cardColors(Color.LightGray),
+                            ) {
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight()
+                                ) {
+                                    Box(
+
+                                        modifier = Modifier
+                                            .height(110.dp).width(150.dp),
+                                        contentAlignment = Alignment.Center,
+
+                                        ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.frozen),
+                                            contentDescription = "login bglog",
+                                            contentScale = ContentScale.FillBounds,
+                                            modifier = Modifier
+                                                .size(140.dp)
+                                                .clip(RoundedCornerShape(10.dp))
+                                                .fillMaxSize()
+                                        )
+
+                                    }
+                                    Text(
+                                        text = "Pastries",
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = FontFamily.Default,
+                                        fontStyle = FontStyle.Normal,
+                                        color = Color.Black,
+                                        textAlign = TextAlign.Center,
+                                    )
+                                }
+
+                            }
+                        }
+                        Row(
+                            modifier = Modifier.wrapContentWidth(),
+                        ) {
+                            Card(
+                                modifier = Modifier
+                                    .padding(10.dp)
+                                    .clickable { }
+                                    .size(150.dp),
+                                shape = RoundedCornerShape(10.dp),
+                                elevation = CardDefaults.cardElevation(50.dp),
+                                colors = CardDefaults.cardColors(Color.LightGray),
+                            ) {
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight()
+                                ) {
+                                    Box(
+
+                                        modifier = Modifier
+                                            .height(110.dp).width(150.dp),
+                                        contentAlignment = Alignment.Center,
+
+                                        ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.meat),
+                                            contentDescription = "login bglog",
+                                            contentScale = ContentScale.FillBounds,
+                                            modifier = Modifier
+                                                .size(140.dp)
+                                                .clip(RoundedCornerShape(10.dp))
+                                                .fillMaxSize()
+                                        )
+
+                                    }
+                                    Text(
+                                        text = "Meat",
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = FontFamily.Default,
+                                        fontStyle = FontStyle.Normal,
+                                        color = Color.Black,
+                                        textAlign = TextAlign.Center,
+                                    )
+                                }
+
+                            }
+
+
+                        }
+
+                    }
+                }
+            }
             Spacer(modifier = Modifier.height(600.dp))
             Row (horizontalArrangement = Arrangement.End,
             ){
@@ -130,8 +684,12 @@ fun DashboardScreen(navController: NavController) {
 
                 }
             }
+
         }
-}
+
+    }
+
+
 
 
 

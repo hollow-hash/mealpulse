@@ -15,8 +15,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,24 +51,22 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.mealpulse.R
-import com.example.mealpulse.data.fooditemViewModel
+import com.example.mealpulse.data.FooditemViewModel
 
 
 @Composable
 fun addFooditemScreen(navController: NavController) {
     var name by remember { mutableStateOf("") }
-    var type by remember { mutableStateOf("") }
-    var category by remember { mutableStateOf("") }
+    var brand by remember { mutableStateOf("") }
     var quantity by remember { mutableStateOf("") }
     var unit by remember { mutableStateOf("") }
     var expirydate by remember { mutableStateOf("") }
     var purchasedate by remember { mutableStateOf("") }
-    var description by remember { mutableStateOf("") }
     var location by remember { mutableStateOf("") }
     val imageUri = rememberSaveable() { mutableStateOf<Uri?>(null) }
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) {
             uri: Uri? ->uri?.let { imageUri.value=it } }
-    val fooditemViewModel: fooditemViewModel = viewModel()
+    val fooditemViewModel:FooditemViewModel = viewModel()
     val context= LocalContext.current
 
     Column (
@@ -93,38 +98,52 @@ fun addFooditemScreen(navController: NavController) {
                         model = imageUri.value ?: R.drawable.add_b,
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.size(20.dp).clickable{ launcher.launch("image/*")})}
-
+                        modifier = Modifier.size(200.dp).clickable{ launcher.launch("image/*")})
+                }
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
                     label = { Text("Enter food item name ") },
-                    textStyle = TextStyle(color = Color.White),
+                    textStyle = TextStyle(color = Color.Black),
                     placeholder = { Text("Please Enter food itam name") },
+                    leadingIcon = {
+                        Icon(
+                            Icons.Default.Person,
+                            contentDescription = "Person",
+                            tint = Color.Black
+                        )
+                    },
                     modifier = Modifier.fillMaxWidth(0.8f)
                 )
                 OutlinedTextField(
-                    value = type,
-                    onValueChange = { type = it },
+                    value = brand,
+                    onValueChange = { brand = it },
                     label = { Text("Enter food item type ") },
-                    textStyle = TextStyle(color = Color.White),
+                    textStyle = TextStyle(color = Color.Black),
                     placeholder = { Text("Please Enter food item type") },
+                    leadingIcon = {
+                        Icon(
+                            Icons.Default.Create,
+                            contentDescription = "Brand",
+                            tint = Color.Black
+                        )
+                    },
                     modifier = Modifier.fillMaxWidth(0.8f)
                 )
-                OutlinedTextField(
-                    value = category,
-                    onValueChange = { category = it },
-                    label = { Text("Enter food item category") },
-                    textStyle = TextStyle(color = Color.White),
-                    placeholder = { Text("Please Enter food item category") },
-                    modifier = Modifier.fillMaxWidth(0.8f)
-                )
+
                 OutlinedTextField(
                     value = quantity,
                     onValueChange = { quantity = it },
                     label = { Text("Enter quantity") },
-                    textStyle = TextStyle(color = Color.White),
+                    textStyle = TextStyle(color = Color.Black),
                     placeholder = { Text("Please Enter food item quantity") },
+                    leadingIcon = {
+                        Icon(
+                            Icons.Default.Menu,
+                            contentDescription = "Email icon",
+                            tint = Color.Black
+                        )
+                    },
                     modifier = Modifier.fillMaxWidth(0.8f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 )
@@ -132,7 +151,7 @@ fun addFooditemScreen(navController: NavController) {
                     value = unit,
                     onValueChange = { unit = it },
                     label = { Text("Enter Unit") },
-                    textStyle = TextStyle(color = Color.White),
+                    textStyle = TextStyle(color = Color.Black),
                     placeholder = { Text("Please Enter food item Unit") },
                     modifier = Modifier.fillMaxWidth(0.8f),
 
@@ -141,31 +160,39 @@ fun addFooditemScreen(navController: NavController) {
                     value = expirydate,
                     onValueChange = { expirydate = it },
                     label = { Text("Enter Expiry Date") },
-                    textStyle = TextStyle(color = Color.White),
+                    textStyle = TextStyle(color = Color.Black),
                     placeholder = { Text("Please Enter food item Expiry Date") },
+                    leadingIcon = {
+                        Icon(
+                            Icons.Default.DateRange,
+                            contentDescription = "Email icon",
+                            tint = Color.Black
+                        )
+                    },
                     modifier = Modifier.fillMaxWidth(0.8f)
+
                 )
                 OutlinedTextField(
                     value = purchasedate,
                     onValueChange = { purchasedate = it },
                     label = { Text("Enter Purchase Date") },
-                    textStyle = TextStyle(color = Color.White),
+                    textStyle = TextStyle(color = Color.Black),
                     placeholder = { Text("Please Enter food item Purchase Date") },
+                    leadingIcon = {
+                        Icon(
+                            Icons.Default.DateRange,
+                            contentDescription = "Email icon",
+                            tint = Color.Black
+                        )
+                    },
                     modifier = Modifier.fillMaxWidth(0.8f)
                 )
-                OutlinedTextField(
-                    value = description,
-                    onValueChange = { description = it },
-                    label = { Text("Enter Description") },
-                    textStyle = TextStyle(color = Color.White),
-                    placeholder = { Text("Please Enter food item Description") },
-                    modifier = Modifier.fillMaxWidth(0.8f)
-                )
+
                 OutlinedTextField(
                     value = location,
                     onValueChange = { location = it },
                     label = { Text("Enter Location") },
-                    textStyle = TextStyle(color = Color.White),
+                    textStyle = TextStyle(color = Color.Black),
                     placeholder = { Text("Please Enter food item location") },
                     modifier = Modifier.fillMaxWidth(0.8f)
                 )
@@ -174,13 +201,11 @@ fun addFooditemScreen(navController: NavController) {
                     fooditemViewModel.uploadFooditem(
                         imageUri.value,
                         name,
-                        type,
-                        category,
+                        brand,
                         quantity,
                         unit,
                         expirydate,
                         purchasedate,
-                        description,
                         location,
                         navController,
                         context
