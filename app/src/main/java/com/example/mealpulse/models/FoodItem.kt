@@ -4,6 +4,7 @@ import android.provider.ContactsContract.RawContacts.Data
 import java.util.Date
 
 data class FoodItem(
+    var id: String? = null,
     val name: String? = null,
     val brand: String? = null,
     val quantity: String? = null,

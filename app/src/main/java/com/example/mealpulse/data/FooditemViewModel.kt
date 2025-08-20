@@ -2,18 +2,11 @@ package com.example.mealpulse.data
 
 import android.content.Context
 import android.net.Uri
-import android.os.Bundle
-import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.savedinstancestate.savedInstanceState
-import androidx.compose.ui.input.key.Key.Companion.Calendar
-import androidx.compose.ui.text.intl.Locale
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.example.mealpulse.R
 import com.example.mealpulse.models.FoodItem
 import com.example.mealpulse.navigation.ROUTE_BEVERAGE
 import com.example.mealpulse.navigation.ROUTE_DASHBOARD
@@ -28,10 +21,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import java.io.InputStream
-import com.google.android.material.datepicker.MaterialDatePicker
-import java.text.SimpleDateFormat
-
-
 
 
 class FooditemViewModel: ViewModel() {
@@ -70,7 +59,7 @@ class FooditemViewModel: ViewModel() {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(context, "Food Item saved Successfully", Toast.LENGTH_LONG)
                         .show()
-                    navController.navigate(ROUTE_BEVERAGE) { popUpTo(0) }
+                    navController.navigate(ROUTE_DASHBOARD) { popUpTo(0) }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
@@ -115,6 +104,60 @@ class FooditemViewModel: ViewModel() {
         }.addOnFailureListener{
             Toast.makeText(context,"failed to load fooditems",Toast.LENGTH_LONG).show()
 
+        }
+
+    }
+    fun deletefooditem(
+        fooditemId: String,
+        context:Context,
+    ){
+        val ref = FirebaseDatabase.getInstance().getReference("FoodItem").child(fooditemId)
+        ref.removeValue().addOnSuccessListener{
+            _fooditem.removeAll{it.id == fooditemId}
+        }.addOnFailureListener {
+            Toast.makeText(context,"Patient not deleted",Toast.LENGTH_LONG).show()
+        }
+    }
+    fun updatefooditem(
+        fooditemId: String,
+        imageUri: Uri?,
+        name: String,
+        brand:String,
+        quantity: String,
+        unit: String,
+        expirydate: String,
+        purchasedate: String,
+        location: String,
+        navController: NavController,
+        context: Context
+    ){
+
+        viewModelScope.launch (Dispatchers.IO){
+            try{
+                val imageUrl = imageUri?.let { uploadToCLoudinary(context,it)}
+                val updatePatient = mapOf(
+                    "id" to fooditemId,
+                    "name" to name,
+                    "brand" to brand,
+                    "quantity" to quantity,
+                    "unit" to unit,
+                    "expirydate" to expirydate,
+                    "purchasedate" to purchasedate,
+                    "location" to location,
+                    "imageUrl" to imageUrl
+                )
+                val ref = FirebaseDatabase.getInstance().getReference("FoodItem").child(fooditemId)
+                ref.setValue(updatePatient).await()
+                fetchfooditems(context)
+                withContext(Dispatchers.Main){
+                    Toast.makeText(context,"Food Item Updated successfully",Toast.LENGTH_LONG).show()
+                    navController.navigate(ROUTE_DASHBOARD)
+                }
+            }catch (e : Exception){
+                withContext(Dispatchers.Main){
+                    Toast.makeText(context,"Update failed",Toast.LENGTH_LONG).show()
+                }
+            }
         }
 
     }

@@ -50,6 +50,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -74,18 +75,33 @@ import com.example.mealpulse.navigation.ROUTE_REGISTER
 @Composable
 fun DashboardScreen(navController: NavController) {
     val selectedItem = remember { mutableStateOf(null) }
-        Box() {
-            Image(
-                painter = painterResource(id = R.drawable.loginbg),
-                contentDescription = "background image",
-                contentScale = ContentScale.FillBounds,
-                modifier = Modifier.fillMaxSize()
-            )
-        }
+
+    val orangeGradient = Brush.verticalGradient(
+        colors = listOf(
+            Color(0xFFFFA726), // Light Orange
+            Color(0xFFFF9800), // Primary Orange
+            Color(0xFFF57C00)  // Dark Orange
+        )
+    )
+
+    // Box with gradient background
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(brush = orangeGradient)
+    ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(vertical = 16.dp),
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            val OrangePrimary = Color(0xFFFF9800)
+            val OrangeDark = Color(0xFFF57C00)
+            val OrangeLight = Color(0xFFFFCC80)
+
+
             TopAppBar(
                 title = {
                     Text(
@@ -112,12 +128,12 @@ fun DashboardScreen(navController: NavController) {
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.Unspecified,
-                    titleContentColor = Color.Black,
+                    containerColor = Color(0xFFFF9800),
+                    titleContentColor = Color.White,
                     navigationIconContentColor = Color.White,
-                    actionIconContentColor = Color.White
+                    actionIconContentColor = Color.White)
                 )
-            )
+
             LazyColumn {
                 item {
                     Column {
@@ -131,7 +147,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(Color.LightGray),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -179,7 +195,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(Color.LightGray),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -229,7 +245,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(Color.LightGray),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -273,11 +289,11 @@ fun DashboardScreen(navController: NavController) {
                             Card(
                                 modifier = Modifier
                                     .padding(10.dp)
-                                    .clickable { navController.navigate(ROUTE_BEVERAGE)}
+                                    .clickable { navController.navigate(ROUTE_BEVERAGE) }
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(Color.LightGray),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -327,7 +343,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(Color.LightGray),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -375,7 +391,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(Color.LightGray),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -425,7 +441,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(Color.LightGray),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -473,7 +489,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(Color.LightGray),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -523,7 +539,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(Color.LightGray),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -571,7 +587,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(Color.LightGray),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -621,7 +637,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(Color.LightGray),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -668,17 +684,22 @@ fun DashboardScreen(navController: NavController) {
                 }
             }
             Spacer(modifier = Modifier.height(600.dp))
-            Row (horizontalArrangement = Arrangement.End,
-            ){
-                Card (
+            Row(
+                horizontalArrangement = Arrangement.End,
+            ) {
+                Card(
                     shape = CircleShape,
-                    modifier = Modifier.size(60.dp)){
+                    modifier = Modifier.size(60.dp)
+                ) {
                     AsyncImage(
                         model = R.drawable.add_b,
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.size(200.dp).clickable{ navController.navigate(
-                            ROUTE_ADDFOODITEM)}
+                        modifier = Modifier.size(200.dp).clickable {
+                            navController.navigate(
+                                ROUTE_ADDFOODITEM
+                            )
+                        }
                     )
 
 
@@ -688,7 +709,7 @@ fun DashboardScreen(navController: NavController) {
         }
 
     }
-
+}
 
 
 
