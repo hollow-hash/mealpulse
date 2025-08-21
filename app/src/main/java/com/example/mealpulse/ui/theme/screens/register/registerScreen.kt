@@ -89,7 +89,7 @@ fun registerScreen(navController: NavController) {
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Serif,
                 fontStyle = FontStyle.Normal,
-                color = Color.Black,
+                color = Color.White,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -107,10 +107,10 @@ fun registerScreen(navController: NavController) {
                     Icon(
                         Icons.Default.Person,
                         contentDescription = "Lock icon",
-                        tint = Color.Black
+                        tint = Color.White
                     )
                 },
-                modifier = Modifier.fillMaxWidth(0.8f).shadow(20.dp),
+                modifier = Modifier.fillMaxWidth(0.8f),
             )
             Spacer(modifier = Modifier.height(10.dp))
             OutlinedTextField(
@@ -123,10 +123,10 @@ fun registerScreen(navController: NavController) {
                     Icon(
                         Icons.Default.Email,
                         contentDescription = "Email icon",
-                        tint = Color.Black
+                        tint = Color.White
                     )
                 },
-                modifier = Modifier.fillMaxWidth(0.8f).shadow(20.dp),
+                modifier = Modifier.fillMaxWidth(0.8f),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
             )
 
@@ -145,7 +145,7 @@ fun registerScreen(navController: NavController) {
                         tint = Color.White
                     )
                 },
-                modifier = Modifier.fillMaxWidth(0.8f).shadow(20.dp),
+                modifier = Modifier.fillMaxWidth(0.8f),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
             Spacer(modifier = Modifier.height(5.dp))
@@ -158,7 +158,7 @@ fun registerScreen(navController: NavController) {
                 leadingIcon = {
                     Icon(Icons.Default.Phone, contentDescription = "Phone icon", tint = Color.White)
                 },
-                modifier = Modifier.fillMaxWidth(0.8f).shadow(20.dp),
+                modifier = Modifier.fillMaxWidth(0.8f),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
             Spacer(modifier = Modifier.height(5.dp))
@@ -175,7 +175,7 @@ fun registerScreen(navController: NavController) {
                         tint = Color.White
                     )
                 },
-                modifier = Modifier.fillMaxWidth(0.8f).shadow(20.dp)
+                modifier = Modifier.fillMaxWidth(0.8f)
             )
             Spacer(modifier = Modifier.height(5.dp))
             OutlinedTextField(
@@ -191,7 +191,7 @@ fun registerScreen(navController: NavController) {
                         tint = Color.White
                     )
                 },
-                modifier = Modifier.fillMaxWidth(0.8f).shadow(20.dp)
+                modifier = Modifier.fillMaxWidth(0.8f)
             )
             Spacer(modifier = Modifier.height(50.dp))
             val context = LocalContext.current
@@ -208,12 +208,12 @@ fun registerScreen(navController: NavController) {
                         context = context
                     )
                 },
-                colors = ButtonDefaults.buttonColors(OrangeDark),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.White),
 
                         modifier = Modifier
                     .fillMaxWidth(0.8f)
             ) {
-                Text("Create Account")
+                Text("Create Account",color = OrangeDark)
             }
         }
     }

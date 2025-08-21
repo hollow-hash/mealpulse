@@ -69,6 +69,7 @@ import com.example.mealpulse.R
 import com.example.mealpulse.navigation.ROUTE_ADDFOODITEM
 import com.example.mealpulse.navigation.ROUTE_BEVERAGE
 import com.example.mealpulse.navigation.ROUTE_REGISTER
+import com.example.mealpulse.navigation.ROUTE_CANNED_FOOD
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -105,9 +106,9 @@ fun DashboardScreen(navController: NavController) {
             TopAppBar(
                 title = {
                     Text(
-                        text = "Sanchacho Hospital",
+                        text = "Meal Pulse",
                         fontWeight = FontWeight.Bold,
-                        color = Color.LightGray
+                        color = Color.White
                     )
                 },
 
@@ -117,9 +118,6 @@ fun DashboardScreen(navController: NavController) {
                     }
                 },
                 actions = {
-                    IconButton(onClick = {}) {
-                        Icon(Icons.Filled.Search, contentDescription = "Search")
-                    }
                     IconButton(onClick = {}) {
                         Icon(Icons.Filled.Person, contentDescription = "Person")
                     }
@@ -289,7 +287,7 @@ fun DashboardScreen(navController: NavController) {
                             Card(
                                 modifier = Modifier
                                     .padding(10.dp)
-                                    .clickable { navController.navigate(ROUTE_BEVERAGE) }
+                                    .clickable { navController.navigate("$ROUTE_BEVERAGE/beverage") }
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
@@ -535,7 +533,7 @@ fun DashboardScreen(navController: NavController) {
                             Card(
                                 modifier = Modifier
                                     .padding(10.dp)
-                                    .clickable { }
+                                    .clickable { navController.navigate("$ROUTE_CANNED_FOOD/cannedfood")}
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),

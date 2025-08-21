@@ -5,6 +5,7 @@ import java.util.Date
 
 data class FoodItem(
     var id: String? = null,
+    var category: String? = null,
     val name: String? = null,
     val brand: String? = null,
     val quantity: String? = null,

@@ -52,7 +52,7 @@ class AuthViewModel:ViewModel() {
                 Toast.makeText(
                     context, "You have logged in successfully",
                     Toast.LENGTH_LONG).show()
-                navController.navigate(ROUTE_LANDING) { popUpTo(0) }
+                navController.navigate(ROUTE_REGISTER) { popUpTo(0) }
             } else {
                 Toast.makeText(
                     context,

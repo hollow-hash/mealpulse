@@ -53,9 +53,8 @@ import coil.compose.AsyncImage
 import com.example.mealpulse.R
 import com.example.mealpulse.data.FooditemViewModel
 
-
 @Composable
-fun addFooditemScreen(navController: NavController) {
+fun addFooditemScreen(navController: NavController, category: String) {
     var name by remember { mutableStateOf("") }
     var brand by remember { mutableStateOf("") }
     var quantity by remember { mutableStateOf("") }
@@ -63,143 +62,138 @@ fun addFooditemScreen(navController: NavController) {
     var expirydate by remember { mutableStateOf("") }
     var purchasedate by remember { mutableStateOf("") }
     var location by remember { mutableStateOf("") }
-    val imageUri = rememberSaveable() { mutableStateOf<Uri?>(null) }
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) {
-            uri: Uri? ->uri?.let { imageUri.value=it } }
-    val fooditemViewModel:FooditemViewModel = viewModel()
-    val context= LocalContext.current
 
-    Column (
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally){
-
+    val imageUri = rememberSaveable { mutableStateOf<Uri?>(null) }
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let { imageUri.value = it }
     }
-        LazyColumn(
-            modifier = Modifier.fillMaxSize().padding(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            item {
-                Text("Add Food Item",
-                    fontSize = 40.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.Cursive,
-                    fontStyle = FontStyle.Normal,
-                    color = Color.Black,
-                    textAlign = TextAlign.Center,
+
+    val fooditemViewModel: FooditemViewModel = viewModel()
+    val context = LocalContext.current
+
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        item {
+            Text(
+                "Add Food Item",
+                fontSize = 40.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Cursive,
+                color = Color.Black,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(5.dp)
+            )
+
+            // 📷 Image Picker
+            Card(
+                shape = CircleShape,
+                modifier = Modifier
+                    .padding(10.dp)
+                    .size(200.dp)
+            ) {
+                AsyncImage(
+                    model = imageUri.value ?: R.drawable.add_b,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(5.dp)
+                        .size(200.dp)
+                        .clickable { launcher.launch("image/*") }
                 )
-                Card (
-                    shape = CircleShape,
-                    modifier = Modifier.padding(10.dp).size(200.dp)){
-                    AsyncImage(
-                        model = imageUri.value ?: R.drawable.add_b,
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.size(200.dp).clickable{ launcher.launch("image/*")})
-                }
-                OutlinedTextField(
-                    value = name,
-                    onValueChange = { name = it },
-                    label = { Text("Enter food item name ") },
-                    textStyle = TextStyle(color = Color.Black),
-                    placeholder = { Text("Please Enter food itam name") },
-                    leadingIcon = {
-                        Icon(
-                            Icons.Default.Person,
-                            contentDescription = "Person",
-                            tint = Color.Black
-                        )
-                    },
-                    modifier = Modifier.fillMaxWidth(0.8f)
-                )
-                OutlinedTextField(
-                    value = brand,
-                    onValueChange = { brand = it },
-                    label = { Text("Enter food item type ") },
-                    textStyle = TextStyle(color = Color.Black),
-                    placeholder = { Text("Please Enter food item type") },
-                    leadingIcon = {
-                        Icon(
-                            Icons.Default.Create,
-                            contentDescription = "Brand",
-                            tint = Color.Black
-                        )
-                    },
-                    modifier = Modifier.fillMaxWidth(0.8f)
-                )
+            }
 
-                OutlinedTextField(
-                    value = quantity,
-                    onValueChange = { quantity = it },
-                    label = { Text("Enter quantity") },
-                    textStyle = TextStyle(color = Color.Black),
-                    placeholder = { Text("Please Enter food item quantity") },
-                    leadingIcon = {
-                        Icon(
-                            Icons.Default.Menu,
-                            contentDescription = "Email icon",
-                            tint = Color.Black
-                        )
-                    },
-                    modifier = Modifier.fillMaxWidth(0.8f),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                )
-                OutlinedTextField(
-                    value = unit,
-                    onValueChange = { unit = it },
-                    label = { Text("Enter Unit") },
-                    textStyle = TextStyle(color = Color.Black),
-                    placeholder = { Text("Please Enter food item Unit") },
-                    modifier = Modifier.fillMaxWidth(0.8f),
+            // 🏷️ Show Category (read-only, from nav args)
+            Text(
+                text = "Category: $category",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.DarkGray,
+                modifier = Modifier.padding(bottom = 10.dp)
+            )
 
-                )
-                OutlinedTextField(
-                    value = expirydate,
-                    onValueChange = { expirydate = it },
-                    label = { Text("Enter Expiry Date") },
-                    textStyle = TextStyle(color = Color.Black),
-                    placeholder = { Text("Please Enter food item Expiry Date") },
-                    leadingIcon = {
-                        Icon(
-                            Icons.Default.DateRange,
-                            contentDescription = "Email icon",
-                            tint = Color.Black
-                        )
-                    },
-                    modifier = Modifier.fillMaxWidth(0.8f)
+            // ✍️ Editable fields
+            OutlinedTextField(
+                value = name,
+                onValueChange = { name = it },
+                label = { Text("Enter food item name") },
+                textStyle = TextStyle(color = Color.Black),
+                placeholder = { Text("Please enter food item name") },
+                leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
+                modifier = Modifier.fillMaxWidth(0.8f)
+            )
 
-                )
-                OutlinedTextField(
-                    value = purchasedate,
-                    onValueChange = { purchasedate = it },
-                    label = { Text("Enter Purchase Date") },
-                    textStyle = TextStyle(color = Color.Black),
-                    placeholder = { Text("Please Enter food item Purchase Date") },
-                    leadingIcon = {
-                        Icon(
-                            Icons.Default.DateRange,
-                            contentDescription = "Email icon",
-                            tint = Color.Black
-                        )
-                    },
-                    modifier = Modifier.fillMaxWidth(0.8f)
-                )
+            OutlinedTextField(
+                value = brand,
+                onValueChange = { brand = it },
+                label = { Text("Enter food item type") },
+                textStyle = TextStyle(color = Color.Black),
+                placeholder = { Text("Please enter food item type") },
+                leadingIcon = { Icon(Icons.Default.Create, contentDescription = null) },
+                modifier = Modifier.fillMaxWidth(0.8f)
+            )
 
-                OutlinedTextField(
-                    value = location,
-                    onValueChange = { location = it },
-                    label = { Text("Enter Location") },
-                    textStyle = TextStyle(color = Color.Black),
-                    placeholder = { Text("Please Enter food item location") },
-                    modifier = Modifier.fillMaxWidth(0.8f)
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                Button(onClick = {
+            OutlinedTextField(
+                value = quantity,
+                onValueChange = { quantity = it },
+                label = { Text("Enter quantity") },
+                textStyle = TextStyle(color = Color.Black),
+                placeholder = { Text("Please enter quantity") },
+                leadingIcon = { Icon(Icons.Default.Menu, contentDescription = null) },
+                modifier = Modifier.fillMaxWidth(0.8f),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            )
+
+            OutlinedTextField(
+                value = unit,
+                onValueChange = { unit = it },
+                label = { Text("Enter unit") },
+                textStyle = TextStyle(color = Color.Black),
+                placeholder = { Text("Please enter unit") },
+                modifier = Modifier.fillMaxWidth(0.8f)
+            )
+
+            OutlinedTextField(
+                value = expirydate,
+                onValueChange = { expirydate = it },
+                label = { Text("Enter expiry date") },
+                textStyle = TextStyle(color = Color.Black),
+                placeholder = { Text("Please enter expiry date") },
+                leadingIcon = { Icon(Icons.Default.DateRange, contentDescription = null) },
+                modifier = Modifier.fillMaxWidth(0.8f)
+            )
+
+            OutlinedTextField(
+                value = purchasedate,
+                onValueChange = { purchasedate = it },
+                label = { Text("Enter purchase date") },
+                textStyle = TextStyle(color = Color.Black),
+                placeholder = { Text("Please enter purchase date") },
+                leadingIcon = { Icon(Icons.Default.DateRange, contentDescription = null) },
+                modifier = Modifier.fillMaxWidth(0.8f)
+            )
+
+            OutlinedTextField(
+                value = location,
+                onValueChange = { location = it },
+                label = { Text("Enter location") },
+                textStyle = TextStyle(color = Color.Black),
+                placeholder = { Text("Please enter location") },
+                modifier = Modifier.fillMaxWidth(0.8f)
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            // ✅ Upload button
+            Button(
+                onClick = {
                     fooditemViewModel.uploadFooditem(
                         imageUri.value,
+                        category, // ✅ passed from navigation
                         name,
                         brand,
                         quantity,
@@ -210,16 +204,10 @@ fun addFooditemScreen(navController: NavController) {
                         navController,
                         context
                     )
-                }) {
-                    Text("Add Food Item")}
-
+                }
+            ) {
+                Text("Add Food Item")
             }
         }
-
     }
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun addFooditemScreenPreview(){
-    addFooditemScreen(rememberNavController())
 }

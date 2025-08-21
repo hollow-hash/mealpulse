@@ -3,15 +3,15 @@ package com.example.mealpulse.data
 import android.content.Context
 import android.net.Uri
 import android.widget.Toast
-import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.mealpulse.models.FoodItem
-import com.example.mealpulse.navigation.ROUTE_BEVERAGE
 import com.example.mealpulse.navigation.ROUTE_DASHBOARD
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -22,30 +22,59 @@ import okhttp3.Request
 import okhttp3.RequestBody
 import java.io.InputStream
 
+class FooditemViewModel : ViewModel() {
 
-class FooditemViewModel: ViewModel() {
     val cloudinaryUrl = "https://api.cloudinary.com/v1_1/diovcqdhx/image/upload"
     val uploadPreset = "meatpulse_images"
 
+    // ✅ Plain list instead of state list
+
+
+        // ✅ Use StateFlow instead of plain list
+        private val _fooditems = MutableStateFlow<List<FoodItem>>(emptyList())
+        val fooditems: StateFlow<List<FoodItem>> = _fooditems
+
+        fun fetchfooditems(context: Context, category: String) {
+            val ref = FirebaseDatabase.getInstance().getReference("FoodItem")
+            ref.orderByChild("category").equalTo(category)
+                .get()
+                .addOnSuccessListener { snapshot ->
+                    val tempList = mutableListOf<FoodItem>()
+                    for (child in snapshot.children) {
+                        val foodItem = child.getValue(FoodItem::class.java)
+                        foodItem?.let { tempList.add(it) }
+                    }
+                    _fooditems.value = tempList // ✅ Updates StateFlow
+                }
+                .addOnFailureListener {
+                    Toast.makeText(context, "Failed to load food items", Toast.LENGTH_LONG).show()
+                }
+        }
+
+        // ... keep your other functions as they are (upload, update, delete) ...
+
+
+
     fun uploadFooditem(
         imageUri: Uri?,
+        category: String,
         name: String,
-        brand:String,
+        brand: String,
         quantity: String,
         unit: String,
         expirydate: String,
         purchasedate: String,
-
         location: String,
         navController: NavController,
         context: Context
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val imageUrl = imageUri?.let { uploadToCLoudinary(context, it) }
+                val imageUrl = imageUri?.let { uploadToCloudinary(context, it) }
                 val ref = FirebaseDatabase.getInstance().getReference("FoodItem").push()
                 val foodItemData = mapOf(
                     "id" to ref.key,
+                    "category" to name,
                     "name" to name,
                     "brand" to brand,
                     "quantity" to quantity,
@@ -57,21 +86,18 @@ class FooditemViewModel: ViewModel() {
                 )
                 ref.setValue(foodItemData).await()
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(context, "Food Item saved Successfully", Toast.LENGTH_LONG)
-                        .show()
+                    Toast.makeText(context, "Food Item saved Successfully", Toast.LENGTH_LONG).show()
                     navController.navigate(ROUTE_DASHBOARD) { popUpTo(0) }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(context, "Food Item not saved", Toast.LENGTH_LONG).show()
-
                 }
             }
         }
-
     }
 
-    private fun uploadToCLoudinary(context: Context, uri: Uri): String {
+    private fun uploadToCloudinary(context: Context, uri: Uri): String {
         val contentResolver = context.contentResolver
         val inputStream: InputStream? = contentResolver.openInputStream(uri)
         val fileBytes = inputStream?.readBytes() ?: throw Exception("Image read failed")
@@ -88,41 +114,24 @@ class FooditemViewModel: ViewModel() {
         val secureUrl = Regex("\"secure_url\":\"(.*?)\"")
             .find(responseBody ?: "")?.groupValues?.get(1)
         return secureUrl ?: throw Exception("Failed to get image url")
-
     }
-    private val _fooditem = mutableStateListOf<FoodItem>()
-    val fooditems:List<FoodItem> = _fooditem
 
-    fun fetchfooditems(context: Context) {
-        val ref = FirebaseDatabase.getInstance().getReference("FoodItem")
-        ref.get().addOnSuccessListener { snapshot ->
-            _fooditem.clear()
-            for (child in snapshot.children){
-                val patient = child.getValue(FoodItem::class.java)
-                patient?.let {_fooditem.add(it)}
-            }
-        }.addOnFailureListener{
-            Toast.makeText(context,"failed to load fooditems",Toast.LENGTH_LONG).show()
 
-        }
-
-    }
-    fun deletefooditem(
-        fooditemId: String,
-        context:Context,
-    ){
+    fun deletefooditem(fooditemId: String, context: Context) {
         val ref = FirebaseDatabase.getInstance().getReference("FoodItem").child(fooditemId)
-        ref.removeValue().addOnSuccessListener{
-            _fooditem.removeAll{it.id == fooditemId}
+        ref.removeValue().addOnSuccessListener {
+            // ✅ Do NOT auto-update list here
+            Toast.makeText(context, "Food item deleted", Toast.LENGTH_LONG).show()
         }.addOnFailureListener {
-            Toast.makeText(context,"Patient not deleted",Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Food item not deleted", Toast.LENGTH_LONG).show()
         }
     }
+
     fun updatefooditem(
         fooditemId: String,
         imageUri: Uri?,
         name: String,
-        brand:String,
+        brand: String,
         quantity: String,
         unit: String,
         expirydate: String,
@@ -130,12 +139,11 @@ class FooditemViewModel: ViewModel() {
         location: String,
         navController: NavController,
         context: Context
-    ){
-
-        viewModelScope.launch (Dispatchers.IO){
-            try{
-                val imageUrl = imageUri?.let { uploadToCLoudinary(context,it)}
-                val updatePatient = mapOf(
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val imageUrl = imageUri?.let { uploadToCloudinary(context, it) }
+                val updatedItem = mapOf(
                     "id" to fooditemId,
                     "name" to name,
                     "brand" to brand,
@@ -147,55 +155,17 @@ class FooditemViewModel: ViewModel() {
                     "imageUrl" to imageUrl
                 )
                 val ref = FirebaseDatabase.getInstance().getReference("FoodItem").child(fooditemId)
-                ref.setValue(updatePatient).await()
-                fetchfooditems(context)
-                withContext(Dispatchers.Main){
-                    Toast.makeText(context,"Food Item Updated successfully",Toast.LENGTH_LONG).show()
+                ref.setValue(updatedItem).await()
+
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "Food Item Updated successfully", Toast.LENGTH_LONG).show()
                     navController.navigate(ROUTE_DASHBOARD)
                 }
-            }catch (e : Exception){
-                withContext(Dispatchers.Main){
-                    Toast.makeText(context,"Update failed",Toast.LENGTH_LONG).show()
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "Update failed", Toast.LENGTH_LONG).show()
                 }
             }
         }
-
     }
 }
-    // MainActivity.kt
-
-
-//    class MainActivity : AppCompatActivity() {
-//
-//        private lateinit var dateEditText: EditText
-//
-//        override fun onCreate(savedInstanceState: Bundle?) {
-//            super.onCreate(savedInstanceState)
-//            setContentView(R.xml.activity_main)
-//
-//            dateEditText = findViewById(R.id.dateEditText)
-//
-//            dateEditText.setOnClickListener {
-//                // Create the Material Date Picker
-//                val datePicker = MaterialDatePicker.Builder.datePicker()
-//                    .setTitleText("Select a date")
-//                    .build()
-//
-//                // Show the picker
-//                datePicker.show(supportFragmentManager, "MATERIAL_DATE_PICKER")
-//
-//                // Handle the positive button click
-//                datePicker.addOnPositiveButtonClickListener { selection ->
-//                    // Format and set the date
-//                    val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-//                        .format(Date(selection))
-//                    dateEditText.setText(formattedDate)
-//                }
-//            }
-//        }
-//
-//        class Date(selection: Long?) {
-//
-//        }
-
-
