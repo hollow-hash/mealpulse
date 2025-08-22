@@ -6,23 +6,24 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.mealpulse.models.UserModel
 import com.example.mealpulse.navigation.ROUTE_DASHBOARD
-import com.example.mealpulse.navigation.ROUTE_LANDING
 import com.example.mealpulse.navigation.ROUTE_LOGIN
-import com.example.mealpulse.navigation.ROUTE_REGISTER
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
 
 class AuthViewModel:ViewModel() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    fun login(
-        fullname : String,
+    fun register(
+        fullname:String,
         email: String,
         password: String,
+        phonenumber:String,
+        nationality:String,
+        companyname:String,
         navController: NavController,
         context: Context
     ) {
-        if (fullname.isBlank() || email.isBlank() || password.isBlank()) {
+        if (fullname.isBlank() || email.isBlank() || password.isBlank() || phonenumber.isBlank() || nationality.isBlank() || companyname.isBlank()) {
             Toast.makeText(context, "Please fill all the fields", Toast.LENGTH_LONG).show()
 //            to prevent the app crushing
             return
@@ -50,9 +51,9 @@ class AuthViewModel:ViewModel() {
         dbRef.setValue(user).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(
-                    context, "You have logged in successfully",
+                    context, "Account created successfully",
                     Toast.LENGTH_LONG).show()
-                navController.navigate(ROUTE_REGISTER) { popUpTo(0) }
+                navController.navigate(ROUTE_LOGIN) { popUpTo(0) }
             } else {
                 Toast.makeText(
                     context,
@@ -61,14 +62,18 @@ class AuthViewModel:ViewModel() {
             }
         }
     }
-    fun register(username:String,email:String, password: String,phonenumber:String,nationality:String,household:String, navController: NavController, context: Context) {
-        if (username.isBlank() || email.isBlank() || password.isBlank() || phonenumber.isBlank() || nationality.isBlank() || household.isBlank()) {
+    fun login(username:String,
+                 email:String,
+                 password: String,
+                 navController: NavController,
+                 context: Context) {
+        if (username.isBlank() || email.isBlank() || password.isBlank() ) {
             Toast.makeText(context, "Email and password required", Toast.LENGTH_LONG).show()
             return
         }
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(context, "Account created successful",
+                Toast.makeText(context, "You have logged in successfully",
                     Toast.LENGTH_LONG).show()
                 navController.navigate(
                     ROUTE_DASHBOARD) { popUpTo(0) }

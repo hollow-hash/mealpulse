@@ -1,6 +1,7 @@
 package com.example.mealpulse.ui.theme.screens.register
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -46,15 +47,16 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.mealpulse.data.AuthViewModel
+import com.example.mealpulse.navigation.ROUTE_LOGIN
 
 @Composable
 fun registerScreen(navController: NavController) {
-    var username by remember { mutableStateOf("") }
+    var fullname by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var phonenumber by remember { mutableStateOf("") }
     var nationality by remember { mutableStateOf("") }
-    var household by remember { mutableStateOf("") }
+    var companyname by remember { mutableStateOf("") }
     var authViewModel: AuthViewModel = viewModel()
 
     val orangeGradient = Brush.verticalGradient(
@@ -98,11 +100,11 @@ fun registerScreen(navController: NavController) {
             )
             Spacer(modifier = Modifier.height(5.dp))
             OutlinedTextField(
-                value = username,
-                onValueChange = { username = it },
-                label = { Text(" Username", color = Color.White) },
+                value = fullname,
+                onValueChange = { fullname = it },
+                label = { Text(" Fullname", color = Color.White) },
                 textStyle = TextStyle(color = Color.White),
-                placeholder = { Text("Please enter Username", color = Color.White.copy(alpha = 0.6f)) },
+                placeholder = { Text("Please enter Fullname", color = Color.White.copy(alpha = 0.6f)) },
                 leadingIcon = {
                     Icon(
                         Icons.Default.Person,
@@ -154,7 +156,7 @@ fun registerScreen(navController: NavController) {
                 onValueChange = { phonenumber = it },
                 label = { Text("Phone Number", color = Color.White) },
                 textStyle = TextStyle(color = Color.White),
-                placeholder = { Text("Please Enter phone number", color = Color.Black) },
+                placeholder = { Text("Please Enter phone number", color = Color.White) },
                 leadingIcon = {
                     Icon(Icons.Default.Phone, contentDescription = "Phone icon", tint = Color.White)
                 },
@@ -179,8 +181,8 @@ fun registerScreen(navController: NavController) {
             )
             Spacer(modifier = Modifier.height(5.dp))
             OutlinedTextField(
-                value = household,
-                onValueChange = { household = it },
+                value = companyname,
+                onValueChange = { companyname = it },
                 label = { Text("House Hold name", color = Color.White) },
                 textStyle = TextStyle(color = Color.White),
                 placeholder = { Text("Please Enter Household Name", color = Color.White.copy(alpha = 0.6f)) },
@@ -193,17 +195,21 @@ fun registerScreen(navController: NavController) {
                 },
                 modifier = Modifier.fillMaxWidth(0.8f)
             )
+            Spacer(modifier = Modifier.height(10.dp))
+            Text("if already registered, Login Here",
+                modifier = Modifier.clickable { navController.navigate(ROUTE_LOGIN) })
+
             Spacer(modifier = Modifier.height(50.dp))
             val context = LocalContext.current
             Button(
                 onClick = {
                     authViewModel.register(
-                        username = username,
+                        fullname = fullname,
                         email = email,
                         password = password,
                         phonenumber = phonenumber,
                         nationality = nationality,
-                        household = household,
+                        companyname = companyname,
                         navController = navController,
                         context = context
                     )

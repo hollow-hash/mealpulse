@@ -1,4 +1,4 @@
-package com.example.mealpulse.ui.theme.screens.foodItem
+package com.example.mealpulse.ui.theme.screens.cannedfood
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -56,10 +56,11 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.mealpulse.R
+import com.example.mealpulse.data.CannedfoodViewModel
 import com.example.mealpulse.data.FooditemViewModel
 
 @Composable
-fun addFooditemScreen(navController: NavController) {
+fun addCannedfoodScreen(navController: NavController) {
     var name by remember { mutableStateOf("") }
     var brand by remember { mutableStateOf("") }
     var quantity by remember { mutableStateOf("") }
@@ -73,7 +74,7 @@ fun addFooditemScreen(navController: NavController) {
         uri?.let { imageUri.value = it }
     }
 
-    val fooditemViewModel: FooditemViewModel = viewModel()
+    val cannedfoodViewModel: CannedfoodViewModel = viewModel()
     val context = LocalContext.current
 
     val orangeGradient = Brush.verticalGradient(
@@ -222,7 +223,7 @@ fun addFooditemScreen(navController: NavController) {
             // ✅ Upload button
             Button(
                 onClick = {
-                    fooditemViewModel.uploadFooditem(
+                    cannedfoodViewModel.uploadCannedfood(
                         imageUri.value,
                         name,
                         brand,
@@ -233,12 +234,12 @@ fun addFooditemScreen(navController: NavController) {
                         location,
                         navController,
                         context
-                        )
+                    )
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                 modifier = Modifier.fillMaxWidth(0.8f)
             ) {
-                Text("Add Food Item", color = Color(0xFFF57C00))
+                Text("Add Canned Food", color = Color(0xFFF57C00))
             }
         }
     }

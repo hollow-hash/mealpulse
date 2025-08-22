@@ -67,9 +67,11 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.mealpulse.R
 import com.example.mealpulse.navigation.ROUTE_ADDFOODITEM
+//import com.example.mealpulse.navigation.ROUTE_ADDFOODITEM
 import com.example.mealpulse.navigation.ROUTE_BEVERAGE
-import com.example.mealpulse.navigation.ROUTE_REGISTER
 import com.example.mealpulse.navigation.ROUTE_CANNED_FOOD
+import com.example.mealpulse.navigation.ROUTE_REGISTER
+//import com.example.mealpulse.navigation.ROUTE_CANNED_FOOD
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -145,7 +147,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFA726)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -178,7 +180,7 @@ fun DashboardScreen(navController: NavController) {
                                         fontWeight = FontWeight.Bold,
                                         fontFamily = FontFamily.Default,
                                         fontStyle = FontStyle.Normal,
-                                        color = Color.Black,
+                                        color = Color.White,
                                         textAlign = TextAlign.Center,
                                     )
                                 }
@@ -193,7 +195,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFA726)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -226,7 +228,7 @@ fun DashboardScreen(navController: NavController) {
                                         fontWeight = FontWeight.Bold,
                                         fontFamily = FontFamily.Default,
                                         fontStyle = FontStyle.Normal,
-                                        color = Color.Black,
+                                        color = Color.White,
                                         textAlign = TextAlign.Center,
                                     )
                                 }
@@ -243,7 +245,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFA726)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -276,7 +278,7 @@ fun DashboardScreen(navController: NavController) {
                                         fontWeight = FontWeight.Bold,
                                         fontFamily = FontFamily.Default,
                                         fontStyle = FontStyle.Normal,
-                                        color = Color.Black,
+                                        color = Color.White,
                                         textAlign = TextAlign.Center,
                                     )
                                 }
@@ -287,11 +289,11 @@ fun DashboardScreen(navController: NavController) {
                             Card(
                                 modifier = Modifier
                                     .padding(10.dp)
-                                    .clickable { navController.navigate("$ROUTE_BEVERAGE/beverage") }
+                                    .clickable { navController.navigate(ROUTE_BEVERAGE) }
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFA726)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -324,7 +326,7 @@ fun DashboardScreen(navController: NavController) {
                                         fontWeight = FontWeight.Bold,
                                         fontFamily = FontFamily.Default,
                                         fontStyle = FontStyle.Normal,
-                                        color = Color.Black,
+                                        color = Color.White,
                                         textAlign = TextAlign.Center,
                                     )
                                 }
@@ -341,7 +343,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFA726)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -374,7 +376,7 @@ fun DashboardScreen(navController: NavController) {
                                         fontWeight = FontWeight.Bold,
                                         fontFamily = FontFamily.Default,
                                         fontStyle = FontStyle.Normal,
-                                        color = Color.Black,
+                                        color = Color.White,
                                         textAlign = TextAlign.Center,
                                     )
                                 }
@@ -389,7 +391,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFA726)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -422,7 +424,7 @@ fun DashboardScreen(navController: NavController) {
                                         fontWeight = FontWeight.Bold,
                                         fontFamily = FontFamily.Default,
                                         fontStyle = FontStyle.Normal,
-                                        color = Color.Black,
+                                        color = Color.White,
                                         textAlign = TextAlign.Center,
                                     )
                                 }
@@ -439,7 +441,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFA726)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -472,7 +474,7 @@ fun DashboardScreen(navController: NavController) {
                                         fontWeight = FontWeight.Bold,
                                         fontFamily = FontFamily.Default,
                                         fontStyle = FontStyle.Normal,
-                                        color = Color.Black,
+                                        color = Color.White,
                                         textAlign = TextAlign.Center,
                                     )
                                 }
@@ -487,7 +489,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFA726)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -520,7 +522,7 @@ fun DashboardScreen(navController: NavController) {
                                         fontWeight = FontWeight.Bold,
                                         fontFamily = FontFamily.Default,
                                         fontStyle = FontStyle.Normal,
-                                        color = Color.Black,
+                                        color = Color.White,
                                         textAlign = TextAlign.Center,
                                     )
                                 }
@@ -533,11 +535,11 @@ fun DashboardScreen(navController: NavController) {
                             Card(
                                 modifier = Modifier
                                     .padding(10.dp)
-                                    .clickable { navController.navigate("$ROUTE_CANNED_FOOD/cannedfood")}
+                                    .clickable { navController.navigate(ROUTE_CANNED_FOOD)}
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFA726)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -570,7 +572,7 @@ fun DashboardScreen(navController: NavController) {
                                         fontWeight = FontWeight.Bold,
                                         fontFamily = FontFamily.Default,
                                         fontStyle = FontStyle.Normal,
-                                        color = Color.Black,
+                                        color = Color.White,
                                         textAlign = TextAlign.Center,
                                     )
                                 }
@@ -585,7 +587,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFA726)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -618,7 +620,7 @@ fun DashboardScreen(navController: NavController) {
                                         fontWeight = FontWeight.Bold,
                                         fontFamily = FontFamily.Default,
                                         fontStyle = FontStyle.Normal,
-                                        color = Color.Black,
+                                        color = Color.White,
                                         textAlign = TextAlign.Center,
                                     )
                                 }
@@ -635,7 +637,7 @@ fun DashboardScreen(navController: NavController) {
                                     .size(150.dp),
                                 shape = RoundedCornerShape(10.dp),
                                 elevation = CardDefaults.cardElevation(50.dp),
-                                colors = CardDefaults.cardColors(containerColor = Color(0xFFF57C00)),
+                                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFA726)),
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -668,7 +670,7 @@ fun DashboardScreen(navController: NavController) {
                                         fontWeight = FontWeight.Bold,
                                         fontFamily = FontFamily.Default,
                                         fontStyle = FontStyle.Normal,
-                                        color = Color.Black,
+                                        color = Color.White,
                                         textAlign = TextAlign.Center,
                                     )
                                 }
@@ -681,28 +683,28 @@ fun DashboardScreen(navController: NavController) {
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(600.dp))
-            Row(
-                horizontalArrangement = Arrangement.End,
-            ) {
-                Card(
-                    shape = CircleShape,
-                    modifier = Modifier.size(60.dp)
-                ) {
-                    AsyncImage(
-                        model = R.drawable.add_b,
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.size(200.dp).clickable {
-                            navController.navigate(
-                                ROUTE_ADDFOODITEM
-                            )
-                        }
-                    )
-
-
-                }
-            }
+//            Spacer(modifier = Modifier.height(600.dp))
+//            Row(
+//                horizontalArrangement = Arrangement.End,
+//            ) {
+//                Card(
+//                    shape = CircleShape,
+//                    modifier = Modifier.size(60.dp)
+//                ) {
+//                    AsyncImage(
+//                        model = R.drawable.add_b,
+//                        contentDescription = null,
+//                        contentScale = ContentScale.Crop,
+//                        modifier = Modifier.size(200.dp).clickable {
+//                            navController.navigate(
+//                                ROUTE_ADDFOODITEM
+//                            )
+//                        }
+//                    )
+//
+//
+//                }
+//            }
 
         }
 

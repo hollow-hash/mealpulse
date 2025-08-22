@@ -1,9 +1,6 @@
 package com.example.mealpulse.models
 
-import android.provider.ContactsContract.RawContacts.Data
-import java.util.Date
-
-data class FoodItem(
+data class CannedFood(
     var id: String? = null,
     val name: String? = null,
     val brand: String? = null,
@@ -13,6 +10,4 @@ data class FoodItem(
     val purchasedate: String? = null,
     val location: String? = null,
     val imageUrl: String? = null
-
-
-    )
+)

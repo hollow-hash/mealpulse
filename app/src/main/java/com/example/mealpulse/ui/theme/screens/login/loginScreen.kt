@@ -63,7 +63,7 @@ import com.example.mealpulse.data.AuthViewModel
 fun loginScreen(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var fullname by remember { mutableStateOf("") }
+    var username by remember { mutableStateOf("") }
 
     val authViewModel: AuthViewModel = viewModel()
     val context = LocalContext.current
@@ -129,10 +129,10 @@ fun loginScreen(navController: NavController) {
 
             // Fullname Field
             OutlinedTextField(
-                value = fullname,
-                onValueChange = { fullname = it },
-                label = { Text("Enter Fullname", color = Color.White) },
-                placeholder = { Text("Please Enter Fullname", color = Color.White.copy(alpha = 0.6f)) },
+                value = username,
+                onValueChange = { username = it },
+                label = { Text("Enter Username", color = Color.White) },
+                placeholder = { Text("Please Enter Username", color = Color.White.copy(alpha = 0.6f)) },
                 leadingIcon = {
                     Icon(Icons.Default.Person, contentDescription = "Person icon", tint = Color.White)
                 },
@@ -185,7 +185,7 @@ fun loginScreen(navController: NavController) {
             Button(
                 onClick = {
                     authViewModel.login(
-                        fullname = fullname,
+                        username = username,
                         email = email,
                         password = password,
                         navController = navController,

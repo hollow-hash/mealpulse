@@ -1,6 +1,5 @@
-package com.example.mealpulse.ui.theme.screens.foodItem
+package com.example.mealpulse.ui.theme.screens.cannedfood
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,20 +13,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -36,37 +31,34 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.navigation.NavController
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.mealpulse.data.FooditemViewModel
-import com.example.mealpulse.models.FoodItem
+import com.example.mealpulse.data.CannedfoodViewModel
+import com.example.mealpulse.models.CannedFood
 import com.example.mealpulse.navigation.ROUTE_ADDFOODITEM
 
-
 @Composable
-fun beverageScreen(navController: NavController) {
-    val fooditemViewModel: FooditemViewModel = viewModel()
-    val fooditems = fooditemViewModel.fooditems
+fun cannedfoodScreen(navController: NavController) {
+    val cannedfoodViewModel: CannedfoodViewModel = viewModel()
+    val cannedfoods = cannedfoodViewModel.cannedfoods
     val context = LocalContext.current
     val selectedItem = remember { mutableStateOf<Int?>(null) }
 
@@ -87,7 +79,7 @@ fun beverageScreen(navController: NavController) {
                             tint = Color(0xFFFAFAFA)
                         )
                     },
-                    label = { Text(text = "Add Beverage") },
+                    label = { Text(text = "Add Canned food") },
                     alwaysShowLabel = true,
                 )
             }
@@ -111,13 +103,13 @@ fun beverageScreen(navController: NavController) {
                 modifier = Modifier
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
+            ) {
 //            val OrangePrimary = Color(0xFFFF9800)
 //            val OrangeDark = Color(0xFFF57C00)
 //            val OrangeLight = Color(0xFFFFCC80)
 
                 Text(
-                    "Beverage",
+                    "Canned Food",
                     fontSize = 27.sp,
                     fontFamily = FontFamily.Cursive,
                     fontStyle = FontStyle.Normal,
@@ -125,15 +117,15 @@ fun beverageScreen(navController: NavController) {
                     textAlign = TextAlign.Center
                 )
                 LaunchedEffect(Unit) {
-                    fooditemViewModel.fetchfooditems(context)
+                    cannedfoodViewModel.fetchcannedfood(context)
                 }
                 LazyColumn {
-                    items(fooditems) { fooditem ->
-                        fooditemCard(
-                            fooditem = fooditem,
-                            onDelete = { fooditemId ->
-                                fooditemViewModel.deletefooditem(
-                                    fooditemId,
+                    items(cannedfoods) { cannedfood ->
+                        CannedfoodCard(
+                           cannedfood = cannedfood,
+                            onDelete = { cannedfoodId ->
+                                cannedfoodViewModel.deletecannedfood(
+                                    cannedfoodId,
                                     context,
                                 )
                             }, navController
@@ -145,23 +137,19 @@ fun beverageScreen(navController: NavController) {
     }
 }
 
-
-
-
-
 @Composable
-fun fooditemCard(fooditem: FoodItem,onDelete: (String) -> Unit,navController: NavController){
+fun CannedfoodCard(cannedfood: CannedFood, onDelete: (String) -> Unit, navController: NavController){
     var showDialog by remember { mutableStateOf(false) }
 
     if (showDialog) {
         AlertDialog(
             onDismissRequest = {showDialog = false},
             title = { Text("confirm delete") },
-            text = { Text("Are you sure you want to delete this fooditem") },
+            text = { Text("Are you sure you want to delete this cannedfood") },
             confirmButton = {
                 TextButton(onClick = {
                     showDialog = false
-                    fooditem.id?.let{onDelete(it)}
+                    cannedfood.id?.let{onDelete(it)}
                 }) {
                     Text("yes", color = Color.Red)
                 }
@@ -180,7 +168,7 @@ fun fooditemCard(fooditem: FoodItem,onDelete: (String) -> Unit,navController: Na
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(Color(0xFFFAFAFA))) {
         Row( modifier = Modifier.fillMaxWidth().padding(10.dp)){
-            fooditem.imageUrl?.let{imageUrl ->
+            cannedfood.imageUrl?.let{imageUrl ->
                 AsyncImage(
                     model = imageUrl,
                     contentDescription = "Patient String",
@@ -191,25 +179,25 @@ fun fooditemCard(fooditem: FoodItem,onDelete: (String) -> Unit,navController: Na
             Spacer(modifier = Modifier.width(8.dp))
             Column {
                 Text(
-                    text = fooditem.name ?: "No name",
+                    text = cannedfood.name ?: "No name",
                     style = MaterialTheme.typography.titleMedium,
                     color = Color(0xFF333333)
                 )
 
                 Text(
-                    text = "BRAND:${fooditem.brand}",
+                    text = "BRAND:${cannedfood.brand}",
                     style = MaterialTheme.typography.bodySmall,
                     color = Color(0xFF333333)
                 )
 
                 Text(
-                    text = "PURCHASE DATE:${fooditem.purchasedate}",
+                    text = "PURCHASE DATE:${cannedfood.purchasedate}",
                     style = MaterialTheme.typography.bodySmall,
                     color = Color(0xFF333333)
                 )
 
                 Text(
-                    text = "EXPIRY DATE:${fooditem.expirydate}",
+                    text = "EXPIRY DATE:${cannedfood.expirydate}",
                     style = MaterialTheme.typography.bodySmall,
                     color = Color(0xFFF57C00)
                 )
@@ -226,7 +214,7 @@ fun fooditemCard(fooditem: FoodItem,onDelete: (String) -> Unit,navController: Na
                 tint = Color(0xFFF57C00),
                 modifier = Modifier
                     .size(30.dp)
-                    .clickable { navController.navigate("update_fooditem/${fooditem.id}") }
+                    .clickable { navController.navigate("update_cannedfood/${cannedfood.id}") }
             )
             Icon(
                 Icons.Default.Delete,

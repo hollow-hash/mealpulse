@@ -1,4 +1,5 @@
-package com.example.mealpulse.ui.theme.screens.foodItem
+package com.example.mealpulse.ui.theme.screens.cannedfood
+
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -50,24 +51,26 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.mealpulse.data.CannedfoodViewModel
 import com.example.mealpulse.data.FooditemViewModel
+import com.example.mealpulse.models.CannedFood
 import com.example.mealpulse.models.FoodItem
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
 
 
 @Composable
-fun updateFooditemScreen(navController: NavController,fooditemId:String) {
-    val fooditemViewModel:FooditemViewModel = viewModel()
-    var fooditem by remember { mutableStateOf<FoodItem?>(null) }
-    LaunchedEffect(fooditemId) {
-        val ref = FirebaseDatabase.getInstance().getReference("FoodItem").child(fooditemId)
+fun updatecannedfoodScreen(navController: NavController,cannedfoodId:String) {
+    val cannedfoodViewModel: CannedfoodViewModel = viewModel()
+    var cannedfood by remember { mutableStateOf<CannedFood?>(null) }
+    LaunchedEffect(cannedfoodId) {
+        val ref = FirebaseDatabase.getInstance().getReference("Cannedfood").child(cannedfoodId)
         val snapshot = ref.get().await()
-        fooditem = snapshot.getValue(FoodItem::class.java)?.apply {
-            id = fooditemId
+        cannedfood = snapshot.getValue(CannedFood::class.java)?.apply {
+            id = cannedfoodId
         }
     }
-    if (fooditem == null) {
+    if (cannedfood == null) {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
@@ -76,13 +79,13 @@ fun updateFooditemScreen(navController: NavController,fooditemId:String) {
         }
         return
     }
-    var name by remember { mutableStateOf(fooditem!!.name ?:"") }
-    var brand by remember { mutableStateOf(fooditem!!.brand ?:"") }
-    var quantity by remember { mutableStateOf(fooditem!!.quantity ?:"") }
-    var unit by remember { mutableStateOf(fooditem!!.unit ?:"") }
-    var expirydate by remember { mutableStateOf(fooditem!!.expirydate ?:"") }
-    var purchasedate by remember { mutableStateOf(fooditem!!.purchasedate ?:"") }
-    var location by remember { mutableStateOf(fooditem!!.location ?:"") }
+    var name by remember { mutableStateOf(cannedfood!!.name ?:"") }
+    var brand by remember { mutableStateOf(cannedfood!!.brand ?:"") }
+    var quantity by remember { mutableStateOf(cannedfood!!.quantity ?:"") }
+    var unit by remember { mutableStateOf(cannedfood!!.unit ?:"") }
+    var expirydate by remember { mutableStateOf(cannedfood!!.expirydate ?:"") }
+    var purchasedate by remember { mutableStateOf(cannedfood!!.purchasedate ?:"") }
+    var location by remember { mutableStateOf(cannedfood!!.location ?:"") }
     val imageUri = remember() { mutableStateOf<Uri?>(null) }
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) {
         it?.let { uri -> imageUri.value = uri } }
@@ -100,7 +103,7 @@ fun updateFooditemScreen(navController: NavController,fooditemId:String) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
-            Text("Update Canned Food",
+            Text("Add Food Item",
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Cursive,
@@ -115,7 +118,7 @@ fun updateFooditemScreen(navController: NavController,fooditemId:String) {
                 shape = CircleShape,
                 modifier = Modifier.padding(10.dp).size(200.dp)){
                 AsyncImage(
-                    model = imageUri.value ?: fooditem!!.imageUrl,
+                    model = imageUri.value ?: cannedfood!!.imageUrl,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.size(200.dp).clickable{ launcher.launch("image/*")})
@@ -123,9 +126,9 @@ fun updateFooditemScreen(navController: NavController,fooditemId:String) {
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
-                label = { Text("Enter food item name ") },
+                label = { Text("Enter canned food name ") },
                 textStyle = TextStyle(color = Color.Black),
-                placeholder = { Text("Please Enter food itam name") },
+                placeholder = { Text("Please Enter Canned food name") },
                 leadingIcon = {
                     Icon(
                         Icons.Default.Person,
@@ -138,9 +141,9 @@ fun updateFooditemScreen(navController: NavController,fooditemId:String) {
             OutlinedTextField(
                 value = brand,
                 onValueChange = { brand = it },
-                label = { Text("Enter food item type ") },
+                label = { Text("Enter canned food type ") },
                 textStyle = TextStyle(color = Color.Black),
-                placeholder = { Text("Please Enter food item type") },
+                placeholder = { Text("Please Enter canned food type") },
                 leadingIcon = {
                     Icon(
                         Icons.Default.Create,
@@ -156,7 +159,7 @@ fun updateFooditemScreen(navController: NavController,fooditemId:String) {
                 onValueChange = { quantity = it },
                 label = { Text("Enter quantity") },
                 textStyle = TextStyle(color = Color.Black),
-                placeholder = { Text("Please Enter food item quantity") },
+                placeholder = { Text("Please Enter canned food quantity") },
                 leadingIcon = {
                     Icon(
                         Icons.Default.Menu,
@@ -172,7 +175,7 @@ fun updateFooditemScreen(navController: NavController,fooditemId:String) {
                 onValueChange = { unit = it },
                 label = { Text("Enter Unit") },
                 textStyle = TextStyle(color = Color.Black),
-                placeholder = { Text("Please Enter food item Unit") },
+                placeholder = { Text("Please Enter canned food Unit") },
                 modifier = Modifier.fillMaxWidth(0.8f),
 
                 )
@@ -181,7 +184,7 @@ fun updateFooditemScreen(navController: NavController,fooditemId:String) {
                 onValueChange = { expirydate = it },
                 label = { Text("Enter Expiry Date") },
                 textStyle = TextStyle(color = Color.Black),
-                placeholder = { Text("Please Enter food item Expiry Date") },
+                placeholder = { Text("Please Enter canned food Expiry Date") },
                 leadingIcon = {
                     Icon(
                         Icons.Default.DateRange,
@@ -197,7 +200,7 @@ fun updateFooditemScreen(navController: NavController,fooditemId:String) {
                 onValueChange = { purchasedate = it },
                 label = { Text("Enter Purchase Date") },
                 textStyle = TextStyle(color = Color.Black),
-                placeholder = { Text("Please Enter food item Purchase Date") },
+                placeholder = { Text("Please Enter canned food Purchase Date") },
                 leadingIcon = {
                     Icon(
                         Icons.Default.DateRange,
@@ -213,13 +216,13 @@ fun updateFooditemScreen(navController: NavController,fooditemId:String) {
                 onValueChange = { location = it },
                 label = { Text("Enter Location") },
                 textStyle = TextStyle(color = Color.Black),
-                placeholder = { Text("Please Enter food item location") },
+                placeholder = { Text("Please Enter canned food location") },
                 modifier = Modifier.fillMaxWidth(0.8f)
             )
             Spacer(modifier = Modifier.height(10.dp))
             Button(onClick = {
-                fooditemViewModel.updatefooditem(
-                    fooditemId,
+                cannedfoodViewModel.updatecannedfood(
+                    cannedfoodId,
                     imageUri.value,
                     name,
                     brand,
